@@ -26,7 +26,8 @@ ExecStart=/usr/bin/bash -lc '\
 '
 
 # Restart behavior
-Restart=on-failure
+#on-failure
+Restart=no
 RestartSec=2
 
 # Clean shutdown (ROS nodes handle SIGINT nicely)
