@@ -6,25 +6,54 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_DIR"
 
+SYSTEMD_DIR="$REPO_DIR/systemd"
+
+echo "[deploy.sh] Using repo dir: $REPO_DIR"
+echo "[deploy.sh] Using systemd dir: $SYSTEMD_DIR"
+
+########################################
 # Update code
+########################################
 git fetch --all --prune
 git reset --hard origin/master
 
+########################################
 # Build
+########################################
 ./scripts/build.sh
 
-# Install Base Services (including motor controller)
-if systemctl list-unit-files | grep -q '^matilda-robot.service'; then
-  sudo systemctl restart matilda-robot.service
-  sudo systemctl --no-pager --full status matilda-robot.service || true
-else
-  echo "matilda-robot.service not installed yet (that's ok)."
-fi
+########################################
+# Install / update systemd services
+########################################
 
-# Install Behavior Manager
-if systemctl list-unit-files | grep -q '^matilda-behavior-manager.service'; then
-  sudo systemctl restart matilda-behavior-manager.service
-  sudo systemctl --no-pager --full status matilda-behavior-manager.service || true
-else
-  echo "matilda-behavior-manager.service not installed yet (that's ok)."
-fi
+install_service() {
+  local name="$1"
+  local src="$SYSTEMD_DIR/${name}.service"
+  local dst="/etc/systemd/system/${name}.service"
+
+  if [[ ! -f "$src" ]]; then
+    echo "[deploy.sh] WARNING: $src not found, skipping ${name}.service install."
+    return
+  fi
+
+  # Create symlink if it doesn't exist yet
+  if [[ ! -e "$dst" ]]; then
+    echo "[deploy.sh] Installing ${name}.service -> $dst"
+    sudo ln -s "$src" "$dst"
+    # After creating a new unit symlink, reload systemd
+    sudo systemctl daemon-reload
+  fi
+
+  # Enable (safe if already enabled)
+  echo "[deploy.sh] Enabling ${name}.service"
+  sudo systemctl enable "${name}.service"
+
+  # Restart and show status
+  echo "[deploy.sh] Restarting ${name}.service"
+  sudo systemctl restart "${name}.service"
+  sudo systemctl --no-pager --full status "${name}.service" || true
+}
+
+# Install / restart the core services
+install_service "matilda-robot"
+install_service "matilda-behavior-manager"
