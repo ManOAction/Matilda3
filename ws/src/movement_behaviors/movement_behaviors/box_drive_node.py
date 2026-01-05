@@ -10,8 +10,8 @@ class BoxDriveNode(Node):
         super().__init__("box_drive_node")
 
         # Parameters
-        self.declare_parameter("forward_speed", 0.5)    # m/s
-        self.declare_parameter("turn_speed", 0.6)       # rad/s
+        self.declare_parameter("forward_speed", 1)    # m/s
+        self.declare_parameter("turn_speed", 1)       # rad/s
         self.declare_parameter("side_duration", 2.0)    # seconds forward per side
         self.declare_parameter("turn_duration", 1.5)    # seconds per 90° turn (approx)
         self.declare_parameter("loops", 1)              # number of boxes to drive

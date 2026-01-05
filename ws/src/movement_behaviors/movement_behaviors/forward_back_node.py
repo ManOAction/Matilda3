@@ -10,7 +10,7 @@ class ForwardBackNode(Node):
         super().__init__("forward_back_node")
 
         # Parameters
-        self.declare_parameter("speed", 0.5)            # m/s
+        self.declare_parameter("speed", 1)            # m/s
         self.declare_parameter("forward_duration", 2.0) # seconds
         self.declare_parameter("back_duration", 2.0)    # seconds
         self.declare_parameter("pause_duration", 0.5)   # seconds between segments
