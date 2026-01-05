@@ -36,11 +36,9 @@ install_service() {
     return
   fi
 
-  # Create symlink if it doesn't exist yet
-  if [[ ! -e "$dst" ]]; then
-    echo "[deploy.sh] Installing ${name}.service -> $dst"
-    sudo ln -s "$src" "$dst"
-  fi
+  # Create/update symlink to service file
+  echo "[deploy.sh] Installing ${name}.service -> $dst"
+  sudo ln -sf "$src" "$dst"
 
   # Reload systemd to pick up any changes
   sudo systemctl daemon-reload
