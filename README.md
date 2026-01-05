@@ -8,6 +8,10 @@ Design goals, autonomy plans, and future features live in `docs/`.
 
 ---
 
+## Things I keep forgetting.
+journalctl -u matilda-robot.service -n 50 --no-pager
+
+
 ## What This Robot Does (Today)
 
 - Accepts velocity commands on `/cmd_vel`

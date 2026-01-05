@@ -19,11 +19,9 @@ Environment=ROS_LOG_DIR=/var/log/matilda_ros
 # Run a login shell so "source ..." works, then start your node/launch.
 # Replace the ros2 command with your actual package/executable or launch file.
 ExecStart=/usr/bin/bash -lc '\
-  set -euo pipefail; \
-  set +u; \
+  set -eo pipefail; \
   source /opt/ros/kilted/setup.bash; \
   source /opt/matilda_robot/ws/install/setup.bash; \
-  set -u; \
   exec ros2 run matilda_motor motor_node --ros-args -p port:=/dev/matilda-uno \
 '
 
