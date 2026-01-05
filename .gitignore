@@ -3,6 +3,12 @@ ws/build/
 ws/install/
 ws/log/
 
+# ROS 2 specific tests
+test_copywright.py
+test_flake8.py
+test_pep257.py
+test_xmllint.py
+
 # Colcon ignore files (optional – harmless but noisy)
 ws/**/COLCON_IGNORE
 
