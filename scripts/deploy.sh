@@ -40,9 +40,10 @@ install_service() {
   if [[ ! -e "$dst" ]]; then
     echo "[deploy.sh] Installing ${name}.service -> $dst"
     sudo ln -s "$src" "$dst"
-    # After creating a new unit symlink, reload systemd
-    sudo systemctl daemon-reload
   fi
+
+  # Reload systemd to pick up any changes
+  sudo systemctl daemon-reload
 
   # Enable (safe if already enabled)
   echo "[deploy.sh] Enabling ${name}.service"

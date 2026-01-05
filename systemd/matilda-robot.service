@@ -16,8 +16,6 @@ WorkingDirectory=/opt/matilda_robot
 # Put ROS logs somewhere predictable
 Environment=ROS_LOG_DIR=/var/log/matilda_ros
 
-Environment=AMENT_TRACE_SETUP_FILES=0
-
 ExecStart=/usr/bin/bash -lc '\
   set -eo pipefail; \
   source /opt/ros/kilted/setup.bash; \
