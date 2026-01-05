@@ -55,4 +55,4 @@ install_service() {
 
 # Install / restart the core services
 install_service "matilda-robot"
-# install_service "matilda-behavior-manager"
+install_service "matilda-behavior-manager"
