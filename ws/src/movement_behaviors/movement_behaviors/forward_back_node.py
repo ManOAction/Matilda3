@@ -1,8 +1,8 @@
 import time
 
 import rclpy
-from rclpy.node import Node
 from geometry_msgs.msg import Twist
+from rclpy.node import Node
 
 
 class ForwardBackNode(Node):
@@ -10,10 +10,10 @@ class ForwardBackNode(Node):
         super().__init__("forward_back_node")
 
         # Parameters
-        self.declare_parameter("speed", 1)            # m/s
-        self.declare_parameter("forward_duration", 2.0) # seconds
-        self.declare_parameter("back_duration", 2.0)    # seconds
-        self.declare_parameter("pause_duration", 0.5)   # seconds between segments
+        self.declare_parameter("speed", 1)  # m/s
+        self.declare_parameter("forward_duration", 5.0)  # seconds
+        self.declare_parameter("back_duration", 5.0)  # seconds
+        self.declare_parameter("pause_duration", 1)  # seconds between segments
         self.declare_parameter("loop_hz", 10.0)
 
         self.speed = self.get_parameter("speed").get_parameter_value().double_value
@@ -31,9 +31,7 @@ class ForwardBackNode(Node):
         self.timer = self.create_timer(period, self._timer_callback)
 
         self.get_logger().info(
-            "ForwardBackNode started: "
-            f"{self.forward_duration}s forward, pause {self.pause_duration}s, "
-            f"{self.back_duration}s backward."
+            f"ForwardBackNode started: {self.forward_duration}s forward, pause {self.pause_duration}s, {self.back_duration}s backward."
         )
 
     def _timer_callback(self):
