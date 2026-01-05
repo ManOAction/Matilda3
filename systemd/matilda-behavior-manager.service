@@ -22,7 +22,7 @@ ExecStart=/bin/bash -lc '\
   source /opt/ros/kilted/setup.bash; \
   cd /opt/matilda_robot/ws; \
   source install/setup.bash; \
-  ros2 run matilda_behaviors behavior_manager_node \
+  ros2 run movement_behaviors behavior_manager_node \
 '
 
 # Restart on crashes, but don't thrash
