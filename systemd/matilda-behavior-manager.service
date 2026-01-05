@@ -1,0 +1,43 @@
+[Unit]
+Description=Matilda Robot (ROS2) - Behavior Manager
+After=network.target
+Wants=network.target
+
+# If you want it to start after the motor stack, uncomment these:
+After=matilda-robot.service
+Wants=matilda-robot.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/matilda_robot
+
+# Put ROS logs somewhere predictable
+Environment=ROS_LOG_DIR=/var/log/matilda_ros
+
+# Run the behavior manager node inside the ROS 2 + workspace environment
+ExecStart=/bin/bash -lc '\
+  set -euo pipefail; \
+  set +u; \
+  source /opt/ros/kilted/setup.bash; \
+  cd /opt/matilda_robot/ws; \
+  source install/setup.bash; \
+  set -u; \
+  ros2 run matilda_behaviors behavior_manager_node \
+'
+
+# Restart on crashes, but don't thrash
+Restart=on-failure
+RestartSec=2
+
+# Clean shutdown (ROS nodes handle SIGINT nicely)
+KillSignal=SIGINT
+TimeoutStopSec=10
+
+# Logs go to journalctl
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
