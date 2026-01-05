@@ -13,7 +13,7 @@ git reset --hard origin/master
 # Build
 ./scripts/build.sh
 
-# Restart service if installed
+# Install Base Services (including motor controller)
 if systemctl list-unit-files | grep -q '^matilda-robot.service'; then
   sudo systemctl restart matilda-robot.service
   sudo systemctl --no-pager --full status matilda-robot.service || true
@@ -21,3 +21,10 @@ else
   echo "matilda-robot.service not installed yet (that's ok)."
 fi
 
+# Install Behavior Manager
+if systemctl list-unit-files | grep -q '^matilda-behavior-manager.service'; then
+  sudo systemctl restart matilda-behavior-manager.service
+  sudo systemctl --no-pager --full status matilda-behavior-manager.service || true
+else
+  echo "matilda-behavior-manager.service not installed yet (that's ok)."
+fi
