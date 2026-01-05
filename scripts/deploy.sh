@@ -7,7 +7,7 @@ cd "$REPO_DIR"
 
 # Update code
 git fetch --all --prune
-git reset --hard origin/main
+git reset --hard origin/master
 
 # Build
 ./scripts/build.sh
