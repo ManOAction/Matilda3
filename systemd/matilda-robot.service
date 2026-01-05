@@ -1,0 +1,41 @@
+[Unit]
+Description=Matilda Robot (ROS2) - Motor stack
+After=network.target
+Wants=network.target
+
+# Ensure the Arduino symlink exists before starting
+After=dev-matilda\x2duno.device
+Wants=dev-matilda\x2duno.device
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/matilda_robot
+
+# Put ROS logs somewhere predictable
+Environment=ROS_LOG_DIR=/var/log/matilda_ros
+
+# Run a login shell so "source ..." works, then start your node/launch.
+# Replace the ros2 command with your actual package/executable or launch file.
+ExecStart=/usr/bin/bash -lc '\
+  set -euo pipefail; \
+  source /opt/ros/kilted/setup.bash; \
+  source /opt/matilda_robot/ws/install/setup.bash; \
+  exec ros2 run matilda_motor motor_node --ros-args -p port:=/dev/matilda-uno \
+'
+
+# Restart behavior
+Restart=on-failure
+RestartSec=2
+
+# Clean shutdown (ROS nodes handle SIGINT nicely)
+KillSignal=SIGINT
+TimeoutStopSec=10
+
+# Logs go to journalctl
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
