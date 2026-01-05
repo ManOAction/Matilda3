@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # deploy.sh - Deploy the latest version of the Matilda Robot software
+# DO NOT RUN WITH UNCOMMINTED CHANGES IN DEVELOPMENT! THIS WILL OVERWRITE THEM.
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
