@@ -8,9 +8,15 @@ Design goals, autonomy plans, and future features live in `docs/`.
 
 ---
 
-## Things I keep forgetting.
-journalctl -u matilda-robot.service -n 50 --no-pager
+## TODO / Current Mess
 
+-- I think there is a mess with the UNO serial talking out through the USB. It's getting clogged up and causing some sort of issue that was fixed temporarily when I read the serial output.
+-- The movement_behaviors are inconsistent at best right now. Not sure.
+-- The UNO is locking up with solid lights and no response. Again, I think we need to troubleshoot the println statements and the sleep that's in it.
+
+## Things I keep forgetting.
+
+journalctl -u matilda-robot.service -n 50 --no-pager
 
 ## What This Robot Does (Today)
 
