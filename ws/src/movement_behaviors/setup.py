@@ -24,8 +24,6 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "box_drive_node = movement_behaviors.box_drive_node:main",
-            "forward_back_node = movement_behaviors.forward_back_node:main",
             "behavior_manager_node = movement_behaviors.behavior_manager_node:main",
         ],
     },
