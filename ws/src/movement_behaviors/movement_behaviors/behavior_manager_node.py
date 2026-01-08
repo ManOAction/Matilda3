@@ -40,7 +40,7 @@ class BehaviorManagerNode(Node):
         self.declare_parameter("box_forward_speed", 0.3)     # m/s
         self.declare_parameter("box_turn_speed", 0.5)        # rad/s
         self.declare_parameter("box_side_duration", 2.0)     # seconds per side
-        self.declare_parameter("box_turn_duration", 1.5)       # seconds per turn
+        self.declare_parameter("box_turn_duration", 1.0)       # seconds per turn
         self.declare_parameter("box_loops", 1)               # number of boxes
 
         # Load parameters
