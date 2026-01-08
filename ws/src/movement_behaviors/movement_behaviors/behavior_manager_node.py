@@ -31,16 +31,16 @@ class BehaviorManagerNode(Node):
         self.declare_parameter("loop_hz", 10.0)
 
         # Forward/back behavior parameters
-        self.declare_parameter("fb_speed", 1)              # m/s
+        self.declare_parameter("fb_speed", 0.8)              # m/s
         self.declare_parameter("fb_forward_duration", 2.0)   # seconds
         self.declare_parameter("fb_back_duration", 2.0)      # seconds
         self.declare_parameter("fb_pause_duration", 0.5)     # seconds
 
         # Box behavior parameters
-        self.declare_parameter("box_forward_speed", 0.5)     # m/s
-        self.declare_parameter("box_turn_speed", 0.3)        # rad/s
+        self.declare_parameter("box_forward_speed", 0.3)     # m/s
+        self.declare_parameter("box_turn_speed", 0.5)        # rad/s
         self.declare_parameter("box_side_duration", 2.0)     # seconds per side
-        self.declare_parameter("box_turn_duration", 1)     # seconds per turn
+        self.declare_parameter("box_turn_duration", 1.5)       # seconds per turn
         self.declare_parameter("box_loops", 1)               # number of boxes
 
         # Load parameters
